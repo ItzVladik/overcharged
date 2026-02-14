@@ -1,0 +1,284 @@
+//-----------------------------------------------------------------------------
+//	SHADEREDITOR.VPC
+//
+//	Project Script
+//-----------------------------------------------------------------------------
+
+$Macro			".."
+
+$Include "shadereditor_platform.vpc"
+
+$Macro OUTBINNAME	"shadereditor_$TARGET_PLATFORM"
+$Macro OUTBINDIR	"$TARGET_GAME_DIRECTORY\bin"
+
+$Macro GAMENAME				"shader_editor"
+$MacroHARED			"game\shared"
+$MacroUBLIC			"$TARGET_SRC_DIRECTORY\public"
+$Macro				"shadereditor"
+
+$Include "vpc_scripts\source_dll_base.vpc"
+
+$Configuration
+{
+	$General
+	{
+		$TargetName	"$OUTBINNAME"
+	}
+	
+	$Compiler
+	{
+		$AdditionalIncludeDirectories	".\;$BASE;vgui_editor\include;vgui_editor"
+		$AdditionalIncludeDirectories	"$BASE;$TARGET_SRC_DIRECTORY\public;$TARGET_SRC_DIRECTORY\public\tier0;$TARGET_SRC_DIRECTORY\public\tier1;$TARGET_SRC_DIRECTORY\common"
+		$PreprocessorDefinitions		"$BASE;NO_STRING_T;CLIENT_DLL;VECTOR;VERSION_SAFE_STEAM_API_INTERFACES;PROTECTED_THINGS_ENABLE;strncpy=use_Q_strncpy_instead;_snprintf=use_Q_snprintf_instead" 
+		$PreprocessorDefinitions		"$BASE;ENABLE_CHROMEHTMLWINDOW;fopen=dont_use_fopen" [$WIN32]
+		$PreprocessorDefinitions		"$BASE;ENABLE_CHROMEHTMLWINDOW;" [$OSXALL]
+		$PreprocessorDefinitions		"$BASE;ENABLE_CHROMEHTMLWINDOW;" [$LINUX]
+		$PreprocessorDefinitions		"$BASE;USE_WEBM_FOR_REPLAY" [$LINUX]
+		$PreprocessorDefinitions		"$BASE;CURL_STATICLIB" [$WIN32 && $BUILD_REPLAY]
+		$PreprocessorDefinitions		"$BASE;NO_COMPILING" [$LINUX]
+		//$PreprocessorDefinitions		"$BASE;NO_MALLOC_OVERRIDE"
+		$Create/UsePrecompiledHeader	"Use Precompiled Header (/Yu)"
+		$Create/UsePCHThroughFile		"cbase.h"
+		$PrecompiledHeaderFile			"$(IntDir)/shadereditor.pch"
+		
+		$PreprocessorDefinitions		"$BASE;SHADER_EDITOR_DLL;SHADER_EDITOR_DLL_$TARGET_PLATFORM"
+		$AdditionalIncludeDirectories	"$BASE"
+		$AdditionalIncludeDirectories	"$BASE;util;interface;..\client\shadereditor;nodes;properties;solver;threads;solver\postprocessing;properties\postprocessing;properties\smarttext;nodes\postprocessing"
+		$AdditionalIncludeDirectories	"$BASE;materialsystem\"
+	}
+}
+
+$Project "$OUTBINNAME"
+{
+	$Folder	"Source Files"
+	{
+		$Folder	"Base Files"
+		{
+			$File		"util\client_factorylist.cpp"
+			$File		"util\igamesystem.cpp"
+			
+			$File		"$SRCDIR\public\collisionutils.cpp" \
+						"$SRCDIR\vgui_editor\vgui_controls_editor.cpp" \
+						"$SRCDIR\public\crtmemdebug.cpp"
+		}
+		
+		$File	"cHLSL_Image.cpp"
+		$File	"cHLSL_Mesh.cpp"
+		$File	"cHLSL_Variable.cpp"
+		$File	"cKVPacker.cpp"
+		$File	"cRegex.cpp"
+		$File	"editorCommon.cpp"
+		$File	"exported_utilities.cpp"
+		$File	"gDirectories.cpp"
+		$File	"gPostProcessingCache.cpp"
+		$File	"gRendertargetConfig.cpp"
+		$File	"gShaderDumps.cpp"
+		$File	"vBaseDiag.cpp"
+		$File	"vBridge.cpp"
+		$File	"vDialogConfig.cpp"
+		$File	"vDialogEditorConfig.cpp"
+		$File	"vDialogNew.cpp"
+		$File	"vDialogPPEConfig.cpp"
+		$File	"vDialogPPEffectPrecache.cpp"
+		$File	"vDialogRecompileAll.cpp"
+		$File	"vDialogRTList.cpp"
+		$File	"vDialogSPrecache.cpp"
+		$File	"vEditorFlowGraphPage.cpp"
+		$File	"vEditorFlowGraphSheet.cpp"
+		$File	"vEditorRoot.cpp"
+		$File	"vgui_init.cpp"
+		$File	"vJack.cpp"
+		$File	"vNodeView.cpp"
+		$File	"vNodeViewError.cpp"
+		$File	"vPreview.cpp"
+		$File	"vRenderPanel.cpp"
+		
+		$Folder	"Interface"
+		{
+			$File	"interface\dll_init.cpp"
+			$File	"interface\EditorInit.cpp"
+			$File	"interface\PPEHelper.cpp"
+			$File	"$SRCDIR\materialsystem\IVProcShader.cpp"
+		}
+		
+		$Folder	"Nodes"
+		{
+			$File	"nodes\vBaseContainer.cpp"
+			$File	"nodes\vBaseNode.cpp"
+			$File	"nodes\vNode_Add.cpp"
+			$File	"nodes\vNode_Array.cpp"
+			$File	"nodes\vNode_BaseEvaluate.cpp"
+			$File	"nodes\vNode_BaseRange.cpp"
+			$File	"nodes\vNode_Break.cpp"
+			$File	"nodes\vNode_Callback.cpp"
+			$File	"nodes\vNode_Combo.cpp"
+			$File	"nodes\vNode_Comment.cpp"
+			$File	"nodes\vNode_Condition.cpp"
+			$File	"nodes\vNode_Constant.cpp"
+			$File	"nodes\vNode_Cross.cpp"
+			$File	"nodes\vNode_Custom.cpp"
+			$File	"nodes\vNode_Divide.cpp"
+			$File	"nodes\vNode_Dot.cpp"
+			$File	"nodes\vNode_EnvC.cpp"
+			$File	"nodes\vNode_Final.cpp"
+			$File	"nodes\vNode_Flashlight.cpp"
+			$File	"nodes\vNode_Fog.cpp"
+			$File	"nodes\vNode_Lerp.cpp"
+			$File	"nodes\vNode_Lightscale.cpp"
+			$File	"nodes\vNode_Loop.cpp"
+			$File	"nodes\vNode_Matrices.cpp"
+			$File	"nodes\vNode_MCompose.cpp"
+			$File	"nodes\vNode_Multiply.cpp"
+			$File	"nodes\vNode_Parallax.cpp"
+			$File	"nodes\vNode_PsInput.cpp"
+			$File	"nodes\vNode_PsOutput.cpp"
+			$File	"nodes\vNode_Sampler.cpp"
+			$File	"nodes\vNode_Std_PLight.cpp"
+			$File	"nodes\vNode_Std_Skinning.cpp"
+			$File	"nodes\vNode_Std_VLight.cpp"
+			$File	"nodes\vNode_Subtract.cpp"
+			$File	"nodes\vNode_Swizzle.cpp"
+			$File	"nodes\vNode_TexSample.cpp"
+			$File	"nodes\vNode_TexTransform.cpp"
+			$File	"nodes\vNode_Utility.cpp"
+			$File	"nodes\vNode_VCompression.cpp"
+			$File	"nodes\vNode_VecAppend.cpp"
+			$File	"nodes\vNode_VectorRef.cpp"
+			$File	"nodes\vNode_VmtParam.cpp"
+			$File	"nodes\vNode_VsInput.cpp"
+			$File	"nodes\vNode_VsOutput.cpp"
+			
+			$Folder	"Post processing"
+			{
+				$File	"nodes\postprocessing\vNode_PP_Base.cpp"
+				$File	"nodes\postprocessing\vNode_PP_DrawMat.cpp"
+				$File	"nodes\postprocessing\vNode_PP_Mat.cpp"
+				$File	"nodes\postprocessing\vNode_PP_Operations.cpp"
+				$File	"nodes\postprocessing\vNode_PP_RenderView.cpp"
+				$File	"nodes\postprocessing\vNode_PP_RT.cpp"
+			}
+		}
+		
+		$Folder	"Properties"
+		{
+			$File	"properties\vCodeEditor.cpp"
+			$File	"properties\vNodeProperties.cpp"
+			$File	"properties\vSheet_Array.cpp"
+			$File	"properties\vSheet_Base.cpp"
+			$File	"properties\vSheet_Callback.cpp"
+			$File	"properties\vSheet_CMatrix.cpp"
+			$File	"properties\vSheet_Combo.cpp"
+			$File	"properties\vSheet_Comment.cpp"
+			$File	"properties\vSheet_Condition.cpp"
+			$File	"properties\vSheet_Constant.cpp"
+			$File	"properties\vSheet_Custom.cpp"
+			$File	"properties\vSheet_Final.cpp"
+			$File	"properties\vSheet_Flashlight.cpp"
+			$File	"properties\vSheet_General.cpp"
+			$File	"properties\vSheet_Lightscale.cpp"
+			$File	"properties\vSheet_Loop.cpp"
+			$File	"properties\vSheet_MComp.cpp"
+			$File	"properties\vSheet_Multiply.cpp"
+			$File	"properties\vSheet_Parallax.cpp"
+			$File	"properties\vSheet_PSOutput.cpp"
+			$File	"properties\vSheet_StdPLight.cpp"
+			$File	"properties\vSheet_StdPSpecLight.cpp"
+			$File	"properties\vSheet_StdSkinning.cpp"
+			$File	"properties\vSheet_StdVLight.cpp"
+			$File	"properties\vSheet_Swizzle.cpp"
+			$File	"properties\vSheet_TexTransform.cpp"
+			$File	"properties\vSheet_TextureSample.cpp"
+			$File	"properties\vSheet_VCompression.cpp"
+			$File	"properties\vSheet_VmtParam.cpp"
+			$File	"properties\vSheet_VSInput.cpp"
+			$File	"properties\vSheet_VSOutPSIn.cpp"
+			
+			$Folder	"Post processing"
+			{
+				$File	"properties\postprocessing\vSheet_PP_DrawMat.cpp"
+				$File	"properties\postprocessing\vSheet_PP_Mat.cpp"
+				$File	"properties\postprocessing\vSheet_PP_Operations.cpp"
+				$File	"properties\postprocessing\vSheet_PP_RenderView.cpp"
+				$File	"properties\postprocessing\vSheet_PP_RT.cpp"
+			}
+			
+			$Folder	"Smart text"
+			{
+				$File	"properties\smarttext\vSmartAutocomplete.cpp"
+				$File	"properties\smarttext\vSmartObject.cpp"
+				$File	"properties\smarttext\vSmartObjectList.cpp"
+				$File	"properties\smarttext\vSmartRow.cpp"
+				$File	"properties\smarttext\vSmartText.cpp"
+				$File	"properties\smarttext\vSmartTooltip.cpp"
+			}
+		}
+		
+		$Folder	"Solver"
+		{
+			$File	"solver\cHLSL_Solver_Add.cpp"
+			$File	"solver\cHLSL_Solver_Append.cpp"
+			$File	"solver\cHLSL_Solver_Array.cpp"
+			$File	"solver\cHLSL_Solver_BaseEvaluate.cpp"
+			$File	"solver\cHLSL_Solver_BaseRange.cpp"
+			$File	"solver\cHLSL_Solver_Break.cpp"
+			$File	"solver\cHLSL_Solver_Callback.cpp"
+			$File	"solver\cHLSL_Solver_Constant.cpp"
+			$File	"solver\cHLSL_Solver_ContainerBasic.cpp"
+			$File	"solver\cHLSL_Solver_Cross.cpp"
+			$File	"solver\cHLSL_Solver_Custom.cpp"
+			$File	"solver\cHLSL_Solver_Divide.cpp"
+			$File	"solver\cHLSL_Solver_Dot.cpp"
+			$File	"solver\cHLSL_Solver_Dummy.cpp"
+			$File	"solver\cHLSL_Solver_EnvC.cpp"
+			$File	"solver\cHLSL_Solver_Final.cpp"
+			$File	"solver\cHLSL_Solver_Flashlight.cpp"
+			$File	"solver\cHLSL_Solver_Fog.cpp"
+			$File	"solver\cHLSL_Solver_Lerp.cpp"
+			$File	"solver\cHLSL_Solver_Lightscale.cpp"
+			$File	"solver\cHLSL_Solver_Matrices.cpp"
+			$File	"solver\cHLSL_Solver_MComp.cpp"
+			$File	"solver\cHLSL_Solver_Multiply.cpp"
+			$File	"solver\cHLSL_Solver_Parallax.cpp"
+			$File	"solver\cHLSL_Solver_ReadSemantics.cpp"
+			$File	"solver\cHLSL_Solver_StdPLight.cpp"
+			$File	"solver\cHLSL_Solver_StdSkinning.cpp"
+			$File	"solver\cHLSL_Solver_StdVLight.cpp"
+			$File	"solver\cHLSL_Solver_Subtract.cpp"
+			$File	"solver\cHLSL_Solver_Swizzle.cpp"
+			$File	"solver\cHLSL_Solver_TexTransform.cpp"
+			$File	"solver\cHLSL_Solver_TextureSample.cpp"
+			$File	"solver\cHLSL_Solver_Utility.cpp"
+			$File	"solver\cHLSL_Solver_VCompression.cpp"
+			$File	"solver\cHLSL_Solver_VecRef.cpp"
+			$File	"solver\cHLSL_Solver_VmtParam.cpp"
+			$File	"solver\cHLSL_Solver_WriteSemantics.cpp"
+			$File	"solver\cHLSL_SolverBase.cpp"
+			
+			$File	"solver\hlsl_solver.h"
+			
+			$Folder	"Post processing"
+			{
+				$File	"solver\postprocessing\cHLSL_Solver_PP_DrawMat.cpp"
+				$File	"solver\postprocessing\cHLSL_Solver_PP_Mat.cpp"
+				$File	"solver\postprocessing\cHLSL_Solver_PP_operations.cpp"
+				$File	"solver\postprocessing\cHLSL_Solver_PP_RenderView.cpp"
+				$File	"solver\postprocessing\cHLSL_Solver_PP_RT.cpp"
+				$File	"solver\postprocessing\cHLSL_SolverPP_Base.cpp"
+			}
+		}
+		
+		$Folder	"Threads"
+		{
+			$File	"threads\cBaseThread.cpp"
+			$File	"threads\cCompileThread.cpp"
+			$File	"threads\cSolverCallback.cpp"
+			$File	"threads\cThreadManager.cpp"
+		}
+	}
+
+	$Folder	"Precompiled Header"
+	{
+		$File	"cbase.h"
+		$File	"stdafx.cpp"
+	}
+}

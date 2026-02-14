@@ -1,0 +1,136 @@
+#! /usr/bin/env python
+# encoding: utf-8
+
+from waflib import Utils
+import os
+
+top = '.'
+PROJECT_NAME = 'vgui_controls_editor'
+
+def options(opt):
+	# stub
+	return
+
+def configure(conf):
+	conf.env.append_unique('DEFINES',[
+		'SHADER_EDITOR_DLL',
+		'SHADER_EDITOR_DLL_2013',
+		'NO_COMPILING',
+	])
+
+def build(bld):
+	source = [
+		'../../public/filesystem_helpers.cpp',
+		'colorpicker.cpp',
+		'promptsimple.cpp',
+		'tokenchannels.cpp',
+		'utilities.cpp',
+		'analogbar.cpp',
+		'animatingimagepanel.cpp',
+		'animationcontroller.cpp',
+		'bitmapimagepanel.cpp',
+		'buildfactoryhelper.cpp',
+		'buildgroup.cpp',
+		'buildmodedialog.cpp',
+		'button.cpp',
+		'checkbutton.cpp',
+		'checkbuttonlist.cpp',
+		'circularprogressbar.cpp',
+		'combobox.cpp',
+		'controllermap.cpp',
+		'controls.cpp',
+		'cvartogglecheckbutton.cpp',
+		'directoryselectdialog.cpp',
+		'divider.cpp',
+		'editablepanel.cpp',
+		'expandbutton.cpp',
+		'fileopendialog.cpp',
+		'fileopenstatemachine.cpp',
+		'focusnavgroup.cpp',
+		'frame.cpp',
+		'graphpanel.cpp',
+		'html.cpp',
+		'image.cpp',
+		'imagelist.cpp',
+		'imagepanel.cpp',
+		'inputdialog.cpp',
+		'keybindinghelpdialog.cpp',
+		'keyboardeditordialog.cpp',
+		'keyrepeat.cpp',
+		'label.cpp',
+		'listpanel.cpp',
+		'listviewpanel.cpp',
+		'menu.cpp',
+		'menubar.cpp',
+		'menubutton.cpp',
+		'menuitem.cpp',
+		'messagebox.cpp',
+		'messagedialog.cpp',
+		'panel.cpp',
+		'panellistpanel.cpp',
+		'perforcefileexplorer.cpp',
+		'perforcefilelist.cpp',
+		'perforcefilelistframe.cpp',
+		'progressbar.cpp',
+		'progressbox.cpp',
+		'propertydialog.cpp',
+		'propertypage.cpp',
+		'propertysheet.cpp',
+		'querybox.cpp',
+		'radiobutton.cpp',
+		'richtext.cpp',
+		'rotatingprogressbar.cpp',
+		'savedocumentquery.cpp',
+		'scalableimagepanel.cpp',
+		'scrollableeditablepanel.cpp',
+		'scrollbar.cpp',
+		'scrollbarslider.cpp',
+		'sectionedlistpanel.cpp',
+		'slider.cpp',
+		'splitter.cpp',
+		'subrectimage.cpp',
+		'textentry.cpp',
+		'textimage.cpp',
+		'togglebutton.cpp',
+		'tooltip.cpp',
+		'toolwindow.cpp',
+		'treeview.cpp',
+		'treeviewlistcontrol.cpp',
+		'urllabel.cpp',
+		'wizardpanel.cpp',
+		'wizardsubpanel.cpp',
+	]
+
+	includes = [
+		'.',
+		'../../public/vgui_controls_editor',
+		'../../public/vgui_controls_editor_editor',
+		'../../public',
+		'../../public/tier1',
+		'../../public/tier0',
+		'../../common',
+		'../../materialsystem',
+		'../../game/client/shadereditor',
+	]
+
+	defines = []
+
+	libs = [ 'tier3', 'vstdlib' ]
+
+	if bld.env.DEST_OS == 'win32':
+		libs += ['RPCRT4']
+	elif bld.env.DEST_OS == "darwin":
+		libs += ['ICONV']
+
+	bld.stlib(
+		source   = source,
+		target   = PROJECT_NAME,
+		name     = PROJECT_NAME,
+		features = 'c cxx',
+		includes = includes,
+		defines  = defines,
+		use      = libs,
+		subsystem = bld.env.MSVC_SUBSYSTEM,
+		idx      = bld.get_taskgen_count()
+	)
+

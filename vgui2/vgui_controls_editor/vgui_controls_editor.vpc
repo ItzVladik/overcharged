@@ -1,0 +1,236 @@
+//-----------------------------------------------------------------------------
+//	vgui_controls_editor_editor_editor.VPC
+//
+//	Project Script
+//-----------------------------------------------------------------------------
+
+$Macro SRCDIR				".."
+
+$Include "$SRCDIR\shadereditor_platform.vpc"
+
+$Macro GENERATED_PROTO_DIR	"generated_proto"
+$Macro PROTOBUF_LITE 0
+$Macro OUTLIBNAME "vgui_controls_editor_$TARGET_PLATFORM"
+$Macro OUTLIBDIR	"$SRCDIR\lib\public"	[!$LINUX]
+
+$include "$SRCDIR\vpc_scripts\source_lib_base.vpc"
+//$include "$SRCDIR\vpc_scripts\protobuf_builder.vpc"
+
+$Configuration	"Debug"
+{
+	$General
+	{
+		$IntermediateDirectory		".\Debug_vgui_editor_$TARGET_PLATFORM"
+	}
+}
+
+$Configuration	"Release"
+{
+	$General
+	{
+		$IntermediateDirectory		".\Release_vgui_editor_$TARGET_PLATFORM"
+	}
+}
+
+$Configuration
+{
+	$General
+	{
+		$TargetName	"vgui_controls_editor_$TARGET_PLATFORM"
+	}
+	
+	$Compiler
+	{
+		$AdditionalIncludeDirectories	"$BASE;$TARGET_SRC_DIRECTORY\thirdparty;$SRCDIR\vgui_editor;$TARGET_SRC_DIRECTORY\thirdparty\cef;$GENERATED_PROTO_DIR"
+		$AdditionalIncludeDirectories 	"$BASE;$SRCDIR\shadereditor"
+		$AdditionalIncludeDirectories 	"$BASE;$TARGET_SRC_DIRECTORY\public;$TARGET_SRC_DIRECTORY\public\tier0;$TARGET_SRC_DIRECTORY\public\tier1"
+		
+		$AdditionalIncludeDirectories 	"$BASE;$TARGET_SRC_DIRECTORY\common"
+		
+		$PreprocessorDefinitions		"$BASE;SHADER_EDITOR_DLL_$TARGET_PLATFORM"
+	}
+}
+
+$Project "vgui_controls_editor"
+{
+	$Folder	"Source Files"
+	{
+		$File	"ColorPicker.cpp"
+		$File	"PromptSimple.cpp"
+		$File	"TokenChannels.cpp"
+		$File	"Utilities.cpp"
+		
+		$File	"AnalogBar.cpp"
+		$File	"AnimatingImagePanel.cpp"
+		$File	"AnimationController.cpp"
+		$File	"BitmapImagePanel.cpp"
+		$File	"BuildFactoryHelper.cpp"
+		$File	"BuildGroup.cpp"
+		$File	"BuildModeDialog.cpp"
+		$File	"Button.cpp"
+		$File	"CheckButton.cpp"
+		$File	"CheckButtonList.cpp"
+		$File	"CircularProgressBar.cpp"
+		$File	"ComboBox.cpp"
+		$File	"ControllerMap.cpp"
+		$File	"controls.cpp"
+		$File	"CvarToggleCheckButton.cpp"
+		$File	"DirectorySelectDialog.cpp"
+		$File	"Divider.cpp"
+		$File	"EditablePanel.cpp"
+		$File	"ExpandButton.cpp"
+		$File	"FileOpenDialog.cpp"
+		$File	"FileOpenStateMachine.cpp"
+		$File	"$TARGET_SRC_DIRECTORY\public\filesystem_helpers.cpp"
+		$File	"FocusNavGroup.cpp"
+		$File	"Frame.cpp"
+		$File	"GraphPanel.cpp"
+		$File	"HTML.cpp"
+		$File	"Image.cpp"
+		$File	"ImageList.cpp"
+		$File	"ImagePanel.cpp"
+		$File	"InputDialog.cpp"
+		$File	"KeyBindingHelpDialog.cpp"
+		$File	"KeyBoardEditorDialog.cpp"
+		$File	"KeyRepeat.cpp"
+		$File	"Label.cpp"
+		$File	"ListPanel.cpp"
+		$File	"ListViewPanel.cpp"
+		$File	"Menu.cpp"
+		$File	"MenuBar.cpp"
+		$File	"MenuButton.cpp"
+		$File	"MenuItem.cpp"
+		$File	"MessageBox.cpp"
+		$File	"MessageDialog.cpp"
+		$File	"Panel.cpp"
+		$File	"PanelListPanel.cpp"
+		$File	"PerforceFileExplorer.cpp"
+		$File	"PerforceFileList.cpp"
+		$File	"perforcefilelistframe.cpp"
+		$File	"ProgressBar.cpp"
+		$File	"ProgressBox.cpp"
+		$File	"PropertyDialog.cpp"
+		$File	"PropertyPage.cpp"
+		$File	"PropertySheet.cpp"
+		$File	"QueryBox.cpp"
+		$File	"RadioButton.cpp"
+		$File	"RichText.cpp"
+		$File	"RotatingProgressBar.cpp"
+		$File	"savedocumentquery.cpp"
+		$File	"ScalableImagePanel.cpp"
+		$File	"ScrollableEditablePanel.cpp"
+		$File	"ScrollBar.cpp"
+		$File	"ScrollBarSlider.cpp"
+		$File	"SectionedListPanel.cpp"
+		$File	"Slider.cpp"
+		$File	"Splitter.cpp"
+		$File	"subrectimage.cpp"
+		$File	"TextEntry.cpp"
+		$File	"TextImage.cpp"
+		$File	"ToggleButton.cpp"
+		$File	"Tooltip.cpp"
+		$File	"ToolWindow.cpp"
+		$File	"TreeView.cpp"
+		$File	"TreeViewListControl.cpp"
+		$File	"URLLabel.cpp"
+		$File	"WizardPanel.cpp"
+		$File	"WizardSubPanel.cpp"
+		//$File   "$TARGET_SRC_DIRECTORY\public\html\htmlprotobuf.cpp"
+		//$File   "$TARGET_SRC_DIRECTORY/vgui2/src/vgui_key_translation.cpp"
+	}
+
+	$Folder	"Public Header Files"
+	{
+		$File	"$SRCDIR\vgui_editor\vgui_controls_editor_editor_editor\AnalogBar.h"
+		$File	"$SRCDIR\vgui_editor\vgui_controls_editor_editor_editor\AnimatingImagepanel.h"
+		$File	"$SRCDIR\vgui_editor\vgui_controls_editor_editor_editor\AnimationController.h"
+		$File	"$SRCDIR\vgui_editor\vgui_controls_editor_editor_editor\BitmapImagepanel.h"
+		$File	"$SRCDIR\vgui_editor\vgui_controls_editor_editor_editor\BuildGroup.h"
+		$File	"$SRCDIR\vgui_editor\vgui_controls_editor_editor_editor\BuildModeDialog.h"
+		$File	"$SRCDIR\vgui_editor\vgui_controls_editor_editor_editor\button.h"
+		$File	"$SRCDIR\vgui_editor\vgui_controls_editor_editor_editor\Checkbutton.h"
+		$File	"$SRCDIR\vgui_editor\vgui_controls_editor_editor_editor\CheckButtonList.h"
+		$File	"$SRCDIR\vgui_editor\vgui_controls_editor_editor_editor\CircularProgressBar.h"
+		$File	"$TARGET_SRC_DIRECTORY\public\Color.h"
+		$File	"$SRCDIR\vgui_editor\vgui_controls_editor_editor_editor\combobox.h"
+		$File	"$SRCDIR\vgui_editor\vgui_controls_editor_editor_editor\controllermap.h"
+		$File	"$SRCDIR\vgui_editor\vgui_controls_editor_editor_editor\controls.h"
+		$File	"$SRCDIR\vgui_editor\vgui_controls_editor_editor_editor\CvarToggleCheckbutton.h"
+		$File	"$SRCDIR\vgui_editor\vgui_controls_editor_editor_editor\DialogManager.h"
+		$File	"$SRCDIR\vgui_editor\vgui_controls_editor_editor_editor\DirectorySelectDialog.h"
+		$File	"$SRCDIR\vgui_editor\vgui_controls_editor_editor_editor\Divider.h"
+		$File	"$SRCDIR\vgui_editor\vgui_controls_editor_editor_editor\Editablepanel.h"
+		$File	"$SRCDIR\vgui_editor\vgui_controls_editor_editor_editor\Expandbutton.h"
+		$File	"$SRCDIR\vgui_editor\vgui_controls_editor_editor_editor\FileOpenDialog.h"
+		$File	"$SRCDIR\vgui_editor\vgui_controls_editor_editor_editor\fileopenstatemachine.h"
+		$File	"$TARGET_SRC_DIRECTORY\public\filesystem.h"
+		$File	"$TARGET_SRC_DIRECTORY\public\filesystem_helpers.h"
+		$File	"$SRCDIR\vgui_editor\vgui_controls_editor_editor_editor\FocusNavGroup.h"
+		$File	"$SRCDIR\vgui_editor\vgui_controls_editor_editor_editor\frame.h"
+		$File	"$SRCDIR\vgui_editor\vgui_controls_editor_editor_editor\Graphpanel.h"
+		$File	"$SRCDIR\vgui_editor\vgui_controls_editor_editor_editor\html.h"
+		$File	"$SRCDIR\vgui_editor\vgui_controls_editor_editor_editor\Image.h"
+		$File	"$SRCDIR\vgui_editor\vgui_controls_editor_editor_editor\ImageList.h"
+		$File	"$SRCDIR\vgui_editor\vgui_controls_editor_editor_editor\Imagepanel.h"
+		$File	"$SRCDIR\vgui_editor\vgui_controls_editor_editor_editor\InputDialog.h"
+		$File	"$TARGET_SRC_DIRECTORY\public\tier1\interface.h"
+		$File	"$SRCDIR\vgui_editor\vgui_controls_editor_editor_editor\keybindinghelpdialog.h"
+		$File	"$SRCDIR\vgui_editor\vgui_controls_editor_editor_editor\KeyBindingMap.h"
+		$File	"$SRCDIR\vgui_editor\vgui_controls_editor_editor_editor\keyboardeditordialog.h"
+		$File	"$SRCDIR\vgui_editor\vgui_controls_editor_editor_editor\keyrepeat.h"
+		$File	"$TARGET_SRC_DIRECTORY\public\tier1\KeyValues.h"
+		$File	"$SRCDIR\vgui_editor\vgui_controls_editor_editor_editor\label.h"
+		$File	"$SRCDIR\vgui_editor\vgui_controls_editor_editor_editor\listpanel.h"
+		$File	"$SRCDIR\vgui_editor\vgui_controls_editor_editor_editor\ListViewpanel.h"
+		$File	"$TARGET_SRC_DIRECTORY\public\tier0\memdbgoff.h"
+		$File	"$TARGET_SRC_DIRECTORY\public\tier0\memdbgon.h"
+		$File	"$TARGET_SRC_DIRECTORY\public\tier1\mempool.h"
+		$File	"$SRCDIR\vgui_editor\vgui_controls_editor_editor_editor\Menu.h"
+		$File	"$SRCDIR\vgui_editor\vgui_controls_editor_editor_editor\MenuBar.h"
+		$File	"$SRCDIR\vgui_editor\vgui_controls_editor_editor_editor\Menubutton.h"
+		$File	"$SRCDIR\vgui_editor\vgui_controls_editor_editor_editor\MenuItem.h"
+		$File	"$SRCDIR\vgui_editor\vgui_controls_editor_editor_editor\messagebox.h"
+		$File	"$SRCDIR\vgui_editor\vgui_controls_editor_editor_editor\messagedialog.h"
+		$File	"$SRCDIR\vgui_editor\vgui_controls_editor_editor_editor\messagemap.h"
+		$File	"$SRCDIR\vgui_editor\vgui_controls_editor_editor_editor\panel.h"
+		$File	"$SRCDIR\vgui_editor\vgui_controls_editor_editor_editor\PanelAnimationVar.h"
+		$File	"$SRCDIR\vgui_editor\vgui_controls_editor_editor_editor\Panellistpanel.h"
+		$File	"$SRCDIR\vgui_editor\vgui_controls_editor_editor_editor\perforcefileexplorer.h"
+		$File	"$SRCDIR\vgui_editor\vgui_controls_editor_editor_editor\perforcefilelist.h"
+		$File	"$SRCDIR\vgui_editor\vgui_controls_editor_editor_editor\perforcefilelistframe.h"
+		$File	"$SRCDIR\vgui_editor\vgui_controls_editor_editor_editor\PHandle.h"
+		$File	"$SRCDIR\vgui_editor\vgui_controls_editor_editor_editor\ProgressBar.h"
+		$File	"$SRCDIR\vgui_editor\vgui_controls_editor_editor_editor\ProgressBox.h"
+		$File	"$SRCDIR\vgui_editor\vgui_controls_editor_editor_editor\PropertyDialog.h"
+		$File	"$SRCDIR\vgui_editor\vgui_controls_editor_editor_editor\PropertyPage.h"
+		$File	"$SRCDIR\vgui_editor\vgui_controls_editor_editor_editor\PropertySheet.h"
+		$File	"$SRCDIR\vgui_editor\vgui_controls_editor_editor_editor\QueryBox.h"
+		$File	"$SRCDIR\vgui_editor\vgui_controls_editor_editor_editor\Radiobutton.h"
+		$File	"$SRCDIR\vgui_editor\vgui_controls_editor_editor_editor\RichText.h"
+		$File	"$SRCDIR\vgui_editor\vgui_controls_editor_editor_editor\RotatingProgressBar.h"
+		$File	"$SRCDIR\vgui_editor\vgui_controls_editor_editor_editor\savedocumentquery.h"
+		$File	"$SRCDIR\vgui_editor\vgui_controls_editor_editor_editor\ScalableImagepanel.h"
+		$File	"$SRCDIR\vgui_editor\vgui_controls_editor_editor_editor\scrollableeditablepanel.h"
+		$File	"$SRCDIR\vgui_editor\vgui_controls_editor_editor_editor\scrollbar.h"
+		$File	"$SRCDIR\vgui_editor\vgui_controls_editor_editor_editor\scrollbarslider.h"
+		$File	"$SRCDIR\vgui_editor\vgui_controls_editor_editor_editor\Sectionedlistpanel.h"
+		$File	"$SRCDIR\vgui_editor\vgui_controls_editor_editor_editor\Slider.h"
+		$File	"$SRCDIR\vgui_editor\vgui_controls_editor_editor_editor\splitter.h"
+		$File	"$SRCDIR\vgui_editor\vgui_controls_editor_editor_editor\subrectimage.h"
+		$File	"$SRCDIR\vgui_editor\vgui_controls_editor_editor_editor\textentry.h"
+		$File	"$SRCDIR\vgui_editor\vgui_controls_editor_editor_editor\TextImage.h"
+		$File	"$SRCDIR\vgui_editor\vgui_controls_editor_editor_editor\Togglebutton.h"
+		$File	"$SRCDIR\vgui_editor\vgui_controls_editor_editor_editor\tooltip.h"
+		$File	"$SRCDIR\vgui_editor\vgui_controls_editor_editor_editor\ToolWindow.h"
+		$File	"$SRCDIR\vgui_editor\vgui_controls_editor_editor_editor\TreeView.h"
+		$File	"$SRCDIR\vgui_editor\vgui_controls_editor_editor_editor\TreeViewListControl.h"
+		$File	"$SRCDIR\vgui_editor\vgui_controls_editor_editor_editor\URLlabel.h"
+		$File	"$TARGET_SRC_DIRECTORY\public\tier1\utlmemory.h"
+		$File	"$TARGET_SRC_DIRECTORY\public\tier1\utlrbtree.h"
+		$File	"$TARGET_SRC_DIRECTORY\public\tier1\utlvector.h"
+		$File	"$SRCDIR\vgui_editor\vgui_controls_editor_editor_editor\Wizardpanel.h"
+		$File	"$SRCDIR\vgui_editor\vgui_controls_editor_editor_editor\WizardSubpanel.h"
+	}
+
+
+}
